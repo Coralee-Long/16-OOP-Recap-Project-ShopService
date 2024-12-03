@@ -3,7 +3,7 @@ package com.recap;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderListRepo {
+public class OrderListRepo implements OrderRepoInterface {
 
     // order list
     private final List<Order> orders;
@@ -13,7 +13,15 @@ public class OrderListRepo {
         this.orders = new ArrayList<>();
     }
 
+    // Add an already-created order
+    @Override
+    public void addOrder(Order order) {
+        orders.add(order);
+        System.out.println("Order added: " + order);
+    }
+
     // get all orders
+    @Override
     public List<Order> getAllOrders() {
         System.out.println("Getting all orders: " + orders);
         for (Order order : orders) {
@@ -27,6 +35,7 @@ public class OrderListRepo {
     }
 
     // get single order
+    @Override
     public Order getSingleOrder(Order order) {
         if(!orders.contains(order)) {
             System.out.println("Order: " + order + ", not found");
@@ -36,12 +45,8 @@ public class OrderListRepo {
         return order;
     }
 
-    // add order
-    public void addOrder(Order order) {
-        orders.add(order);
-    }
-
     // remove order from orders list
+    @Override
     public void removeOrder(Order order) {
         if(!orders.contains(order)) {
             System.out.println("Order removal unsuccessful: " + order.item() + ", not found.");
@@ -49,6 +54,5 @@ public class OrderListRepo {
         }
         System.out.println(order.item() + " was removed successfully.");
         orders.remove(order);
-
     }
 }
